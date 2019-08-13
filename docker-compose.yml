@@ -1,0 +1,42 @@
+
+# docker-compose.yml
+
+version: "3.2"
+services:
+
+  redis:
+    image: redis
+    container_name: cache
+    expose:
+      - 6379
+
+  server:
+    build: ./server
+    # Keep it running.  
+    tty: true
+    # Map port 5000 on the host machine to port 8080 of the container.
+    # This will be used to receive HTTP requests made to the service.
+    ports:
+      - "4001:4001"
+    volumes:
+      - './server:/server'
+    links:
+      - redis
+    environment:
+      - REDIS_URL=redis://cache
+
+  frontend:
+    build: ./frontend
+    tty: true
+    ports:
+      - "3000:3000"
+    volumes:
+      - './frontend:/frontend'
+    links:
+      - server
+
+
+# Host volumes used to store code.
+volumes:
+  server:
+  frontend:

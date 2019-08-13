@@ -2,7 +2,7 @@ const asyncRedis = require('async-redis')
 
 class RedisHandler {
   constructor() {
-    this.client = asyncRedis.createClient()
+    this.client = asyncRedis.createClient(process.env.REDIS_URL)
   }
 
   async saveCitiesLocation() {
