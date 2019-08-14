@@ -20,7 +20,6 @@ class App extends Component {
     const { endpoint } = this.state;
     const socket = socketIOClient(endpoint);
     socket.on("FromAPI", (data) => {
-      console.log(data)
       this.setState({ response: data })
     });
   }

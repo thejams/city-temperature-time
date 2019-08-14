@@ -12,10 +12,7 @@ services:
 
   server:
     build: ./server
-    # Keep it running.  
     tty: true
-    # Map port 5000 on the host machine to port 8080 of the container.
-    # This will be used to receive HTTP requests made to the service.
     ports:
       - "4001:4001"
     volumes:

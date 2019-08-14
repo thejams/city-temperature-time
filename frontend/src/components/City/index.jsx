@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 const CityComponent = ({city, index, icon}) => (
     <div className={ `header-bottom1  ${(index % 2 === 0)? "header-bottom2" : ""}` }>
