@@ -4,6 +4,10 @@ import moment from 'moment-timezone';
 import HeaderComponent from './components/Header'
 import CityComponent from './components/City'
 
+import sunn from './assets/images/sunn.png'
+import rain from './assets/images/rain.png'
+import cloudy from './assets/images/cloudy.png'
+
 class App extends Component {
   constructor() {
     super();
@@ -28,12 +32,21 @@ class App extends Component {
         {
           response
           ?
-          <div className="header-bottom">
+          <div>
             {
-              response.data.map((value, index) => {
+              response.map((value, index) => {
                 value.timeData.time = moment(value.timeData.time).tz(value.timeData.timezone).format('HH:mm:ss')
+                let icon = sunn
+                switch (value.icon) {
+                  case "rain":
+                    icon = rain
+                    break
+                  case "cloudy":
+                    icon = cloudy
+                    break      
+                }
                 return (
-                  <CityComponent city={value} key={index} />
+                  <CityComponent city={value} index={index} icon={icon} key={index} />
                 )
               })
             }
