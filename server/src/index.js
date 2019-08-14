@@ -18,24 +18,24 @@ io.on("connection", async (socket) => {
     console.log("New client connected")
     // TODO: start requesting the information from the cities
     // let citiesInformation = await forecastHandler.getCitiesInformation()
-    let redisHandlerPromises = await Promise.all([
-        redisHandler.getCityLocation('santiagocl'),
-        redisHandler.getCityLocation('zurichch'),
-        redisHandler.getCityLocation('aucklandnz'),
-        redisHandler.getCityLocation('sydneyau'),
-        redisHandler.getCityLocation('londresuk'),
-        redisHandler.getCityLocation('georgiausa')
-    ])
-    let [santiagoLatAndLon, zurichLatAndLon, aucklandLatAndLon, sydneyLatAndLon, londresLatAndLon, georgiaLatAndLon] = redisHandlerPromises
+    // let redisHandlerPromises = await Promise.all([
+    //     redisHandler.getCityLocation('santiagocl'),
+    //     redisHandler.getCityLocation('zurichch'),
+    //     redisHandler.getCityLocation('aucklandnz'),
+    //     redisHandler.getCityLocation('sydneyau'),
+    //     redisHandler.getCityLocation('londresuk'),
+    //     redisHandler.getCityLocation('georgiausa')
+    // ])
+    // let [santiagoLatAndLon, zurichLatAndLon, aucklandLatAndLon, sydneyLatAndLon, londresLatAndLon, georgiaLatAndLon] = redisHandlerPromises
 
-    let forecastHandlerPromises = await Promise.all([
-        forecastHandler.getCitiesInformation(santiagoLatAndLon),
-        forecastHandler.getCitiesInformation(zurichLatAndLon),
-        forecastHandler.getCitiesInformation(aucklandLatAndLon),
-        forecastHandler.getCitiesInformation(sydneyLatAndLon),
-        forecastHandler.getCitiesInformation(londresLatAndLon),
-        forecastHandler.getCitiesInformation(georgiaLatAndLon)
-    ])
+    // let forecastHandlerPromises = await Promise.all([
+    //     forecastHandler.getCitiesInformation(santiagoLatAndLon),
+    //     forecastHandler.getCitiesInformation(zurichLatAndLon),
+    //     forecastHandler.getCitiesInformation(aucklandLatAndLon),
+    //     forecastHandler.getCitiesInformation(sydneyLatAndLon),
+    //     forecastHandler.getCitiesInformation(londresLatAndLon),
+    //     forecastHandler.getCitiesInformation(georgiaLatAndLon)
+    // ])
     // let [santiago, zurich, auckland, sydney, londres, georgia] = forecastHandlerPromises
 
     /*
@@ -64,7 +64,20 @@ io.on("connection", async (socket) => {
     */
         
     setInterval(
-        () => socket.emit("FromAPI", { data: forecastHandlerPromises }),
+        () => socket.emit("FromAPI", { data: [
+          { temperature: 52.33,
+            timeData: { time: new Date(), timezone: 'America/Santiago' } },
+          { temperature: 56.27,
+            timeData: { time: new Date(), timezone: 'Europe/Zurich' } },
+          { temperature: 56.48,
+            timeData: { time: new Date(), timezone: 'Pacific/Auckland' } },
+          { temperature: 60.2,
+            timeData: { time: new Date(), timezone: 'Australia/Sydney' } },
+          { temperature: 54.97,
+            timeData: { time: new Date(), timezone: 'Europe/London' } },
+          { temperature: 86.42,
+            timeData: { time: new Date(), timezone: 'America/New_York' } }
+        ] }),
         10000
     )
     socket.on("disconnect", () => console.log("Client disconnected"));
