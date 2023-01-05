@@ -7,7 +7,7 @@
     "moment-timezone": "^0.5.26",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
-    "react-scripts": "0.9.5",
+    "react-scripts": "5.0.1",
     "socket.io-client": "^2.2.0"
   },
   "devDependencies": {},
